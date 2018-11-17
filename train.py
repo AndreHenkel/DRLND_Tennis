@@ -40,9 +40,10 @@ agent = Agent(state_size=state_size, action_size=action_size, random_seed=1337)
 #agent2= Agent(state_size=state_size, action_size=action_size, random_seed=42)
 
 print("I'm fine")
-def ddpg(n_episodes=2000, max_t=100, print_every=100):
-    #scores_deque = deque(maxlen=print_every)
+def ddpg(n_episodes=2000, max_t=10000, print_every=100):
+    scores_deque = deque(maxlen=print_every)
     scores_total = []
+    deque_history = []
     highest_score = 0.0
     for i_episode in range(1, n_episodes + 1):
         env_info = env.reset(train_mode=True)[brain_name]  # reset the environment
@@ -67,20 +68,23 @@ def ddpg(n_episodes=2000, max_t=100, print_every=100):
             if np.any(dones):
                 break
 
+        deque_history.append(np.mean(scores_deque))
         scores_total.append(scores)
-        #scores_deque.append(scores)
+        scores_deque.append(np.max(scores))
         #scores.append(scores)
         if np.max(scores) > highest_score:
             highest_score = np.max(scores)
 
-        print('Score (max over agents) from episode {}: {:.2f}. Highest score: {:.2f}'.format(i_episode, np.max(scores), highest_score), end="\r")
+        print('Episode {}: Score: {:.2f}. Highest: {:.2f}. Average over {} steps is {:.2f}'.format(i_episode, np.max(scores), highest_score, print_every, np.mean(scores_deque)), end="\r")
         if i_episode % print_every == 0:
+            print('')
+            print('Average over last {} steps is {:.2f}'.format(print_every, np.mean(scores_deque)))
             torch.save(agent.actor_local.state_dict(), 'checkpoints/checkpoint_actor_v1.pth')
             torch.save(agent.critic_local.state_dict(), 'checkpoints/checkpoint_critic_v1.pth')
-    return scores_total
+    return scores_total, deque_history
 
 
-scores_total = ddpg()
+scores_total, deque_history = ddpg()
 env.close()
 
 scores_p1 = [[s[0]] for s in scores_total]
@@ -89,7 +93,8 @@ scores_p2 = [[s[1]] for s in scores_total]
 fig = plt.figure()
 ax = fig.add_subplot(111)
 plt.plot(np.arange(1, len(scores_p1) + 1), scores_p1)
-plt.plot(np.arange(1, len(scores_p1) + 1), scores_p1)
+plt.plot(np.arange(1, len(scores_p2) + 1), scores_p2)
+plt.plot(np.arange(1, len(deque_history) + 1), deque_history)
 plt.ylabel('Score')
 plt.xlabel('Episode #')
 fig.savefig('checkpoints/scores_v1.png')
