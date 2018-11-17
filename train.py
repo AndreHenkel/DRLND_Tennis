@@ -79,8 +79,8 @@ def ddpg(n_episodes=2000, max_t=10000, print_every=100):
         if i_episode % print_every == 0:
             print('')
             print('Average over last {} steps is {:.2f}'.format(print_every, np.mean(scores_deque)))
-            torch.save(agent.actor_local.state_dict(), 'checkpoints/checkpoint_actor_v1.pth')
-            torch.save(agent.critic_local.state_dict(), 'checkpoints/checkpoint_critic_v1.pth')
+            torch.save(agent.actor_local.state_dict(), 'checkpoints/checkpoint_actor_v2.pth')
+            torch.save(agent.critic_local.state_dict(), 'checkpoints/checkpoint_critic_v2.pth')
     return scores_total, deque_history
 
 
@@ -97,5 +97,5 @@ plt.plot(np.arange(1, len(scores_p2) + 1), scores_p2)
 plt.plot(np.arange(1, len(deque_history) + 1), deque_history)
 plt.ylabel('Score')
 plt.xlabel('Episode #')
-fig.savefig('checkpoints/scores_v1.png')
+fig.savefig('checkpoints/scores_v2.png')
 plt.show()
