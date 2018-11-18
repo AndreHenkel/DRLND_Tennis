@@ -3,3 +3,4 @@ unity-environment.log
 .ipynb_checkpoints/
 Tennis.ipynb
 .idea/
+*.pyc
