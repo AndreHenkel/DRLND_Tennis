@@ -75,12 +75,19 @@ def ddpg(n_episodes=2000, max_t=10000, print_every=100):
         if np.max(scores) > highest_score:
             highest_score = np.max(scores)
 
+        if np.mean(scores_deque) >= 0.7:
+            torch.save(agent.actor_local.state_dict(), 'checkpoints/checkpoint_actor_v2_solved.pth')
+            torch.save(agent.critic_local.state_dict(), 'checkpoints/checkpoint_critic_v2_solved.pth')
+            return scores_total, deque_history
+
+
         print('Episode {}: Score: {:.2f}. Highest: {:.2f}. Average over {} steps is {:.2f}'.format(i_episode, np.max(scores), highest_score, print_every, np.mean(scores_deque)), end="\r")
         if i_episode % print_every == 0:
             print('')
             print('Average over last {} steps is {:.2f}'.format(print_every, np.mean(scores_deque)))
-            torch.save(agent.actor_local.state_dict(), 'checkpoints/checkpoint_actor_v2.pth')
-            torch.save(agent.critic_local.state_dict(), 'checkpoints/checkpoint_critic_v2.pth')
+
+            #torch.save(agent.actor_local.state_dict(), 'checkpoints/checkpoint_actor_v2.pth')
+            #torch.save(agent.critic_local.state_dict(), 'checkpoints/checkpoint_critic_v2.pth')
     return scores_total, deque_history
 
 

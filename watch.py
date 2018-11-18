@@ -22,7 +22,8 @@ states = env_info.vector_observations
 state_size = states.shape[1]
 
 agent = Agent(state_size=state_size, action_size=action_size, random_seed=1337)
-agent.load(torch.load("checkpoints/checkpoint_actor_v2.pth"), torch.load("checkpoints/checkpoint_critic_v2.pth"));
+agent.load(torch.load("checkpoints/checkpoint_actor_v2_solved.pth"),
+           torch.load("checkpoints/checkpoint_critic_v2_solved.pth"));
 
 print_every=100
 
