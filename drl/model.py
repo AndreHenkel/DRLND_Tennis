@@ -27,12 +27,6 @@ class Actor(nn.Module):
         self.fc1 = nn.Linear(state_size, fc1_units)
         self.fc2 = nn.Linear(fc1_units, fc2_units)
         self.fc3 = nn.Linear(fc2_units, action_size)
-        #self.reset_parameters()
-
-    def reset_parameters(self):
-        self.fc1.weight.data.uniform_(*hidden_init(self.fc1))
-        self.fc2.weight.data.uniform_(*hidden_init(self.fc2))
-        self.fc3.weight.data.uniform_(-3e-1, 3e-1)
 
     def forward(self, state):
         """Build an actor (policy) network that maps states -> actions."""
@@ -56,23 +50,20 @@ class Critic(nn.Module):
         """
         super(Critic, self).__init__()
         self.seed = torch.manual_seed(seed)
+        #first agent head
         self.fcs1 = nn.Linear(state_size, fcs1_units)
         self.fc2 = nn.Linear(fcs1_units+action_size, fc2_units)
         self.fc3 = nn.Linear(fc2_units, 1)
 
-
+        # second agent head
         self.fcs1_p1 = nn.Linear(state_size, fcs1_units)
         self.fc2_p1 = nn.Linear(fcs1_units+action_size, fc2_units)
         self.fc3_p1 = nn.Linear(fc2_units, 1)
-        #self.reset_parameters()
-
-    def reset_parameters(self):
-        self.fcs1.weight.data.uniform_(*hidden_init(self.fcs1))
-        self.fc2.weight.data.uniform_(*hidden_init(self.fc2))
-        self.fc3.weight.data.uniform_(-3e-3, 3e-3)
 
     def forward(self, state, action, player):
-        """Build a critic (value) network that maps (state, action) pairs -> Q-values."""
+        """Build a critic (value) network that maps (state, action) pairs -> Q-values.
+        Also differs between the agents"""
+        
 
         if player==1:
             xs = F.relu(self.fcs1_p1(state))
