@@ -31,6 +31,7 @@ The Environment is considered solved, after taking the maximum score of each pla
 'Graph showing me solving the environment'
 
 This algorithm even succeeded 0.7 over 100 consecutive episodes once and then bounced around the 0.5 mark.
+The environment was first considered solved at around 700 episodes.
 
 
 # Architecture and Algorithms
