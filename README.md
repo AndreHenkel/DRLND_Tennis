@@ -9,7 +9,7 @@ I followed the tip of the team to use the DDPG algorithm with a shared ReplayBuf
 To start, you need Python 3.6, PyTorch, Numpy, Matplotlib, and the Unity ML-Agents Toolkit.
 
 With Anaconda or virtualenv you can create your python environment like:
-conda create -n drlnd python=3.6 pytorch matplotlib numpy
+    $conda create -n drlnd python=3.6 pytorch matplotlib numpy
 
 For the Unity ML-Agent you need to download the Toolkit (https://github.com/Unity-Technologies/ml-agents) go to the ml-agents/python directory and install it via:
     $pip install ml-agents/python
