@@ -27,10 +27,11 @@ $ python train.py
 The observation space for each agent consists of 8 values and the action space for each agent consists of 2 values, which are both continuous.
 The Environment is considered solved, after taking the maximum score of each player for each episode and then taking the mean of the last 100 scores reaches 0.5 or higher for one episode.
 
-![solved_env]('checkpoints/scores_v2.png')
+![solved_env](checkpoints/scores_v2.png)
 'Graph showing me solving the environment'
 
 This algorithm even succeeded 0.7 over 100 consecutive episodes once and then bounced around the 0.5 mark.
+The environment was first considered solved at around 700 episodes.
 
 
 # Architecture and Algorithms
