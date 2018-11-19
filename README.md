@@ -1,13 +1,15 @@
 # Overview
 In this project you had to train two agents of tennis players, that try to keep the ball in the game as long as possible.
 
+The base for this project and algorithm was layed down by the Udacity team from the DRLND, which we were allowed to use and to adapt.
+I followed the tip of the team to use the DDPG algorithm with a shared ReplayBuffer and a shared Actor Network.
 
 
 # Setup
 To start, you need Python 3.6, PyTorch, Numpy, Matplotlib, and the Unity ML-Agents Toolkit.
 
 With Anaconda or virtualenv you can create your python environment like:
-conda create -n drlnd python=3.6 pytorch matplotlib
+conda create -n drlnd python=3.6 pytorch matplotlib numpy
 
 For the Unity ML-Agent you need to download the Toolkit (https://github.com/Unity-Technologies/ml-agents) go to the ml-agents/python directory and install it via:
     $pip install ml-agents/python

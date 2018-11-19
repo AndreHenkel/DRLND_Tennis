@@ -61,8 +61,6 @@ def ddpg(n_episodes=2000, max_t=10000, print_every=100):
             agent.step(states[0], actions[0], rewards[0], next_states[0], dones[0], 0)
             agent.step(states[0], actions[0], rewards[0], next_states[0], dones[0], 1)
 
-            #agent2.step(states[1], actions[1], rewards[1], next_states[1], dones[1])
-
             states = next_states
             scores += rewards
             if np.any(dones):
