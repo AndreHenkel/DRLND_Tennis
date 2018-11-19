@@ -64,14 +64,8 @@ class Agent():
 
         # Learn, if enough samples are available in memory
         if len(self.memory) > BATCH_SIZE:
-            # using the 10/20 "trick"
-            #if self.learn_cnt >= 20:
-                #for _ in range(10):
             experiences = self.memory.sample()
             self.learn(experiences, GAMMA, player)
-            #self.learn_cnt = 0
-            #else:
-                #self.learn_cnt+=1
 
     def act(self, state):
         """Returns actions for given state as per current policy."""
@@ -86,8 +80,8 @@ class Agent():
                 action = self.actor_local(state).cpu().data.numpy()
             self.actor_local.train()
         self.eps*=self.eps_decay
-        #if self.eps <= 0.01:
-            #self.eps = 0
+        if self.eps <= 0.001: #reduce calculation after epsilon decreased under a certain level
+            self.eps = 0
         return np.clip(action, -1, 1)
 
     def learn(self, experiences, gamma, player):
