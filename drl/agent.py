@@ -17,6 +17,9 @@ LR_ACTOR = 1e-4  # learning rate of the actor
 LR_CRITIC = 1e-3  # learning rate of the critic
 WEIGHT_DECAY = 0.00001  # L2 weight decay
 
+EPSILON = 0.995
+EPSILON_DECAY = 0.999
+
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
@@ -49,9 +52,8 @@ class Agent():
         # Replay memory
         self.memory = ReplayBuffer(action_size, BUFFER_SIZE, BATCH_SIZE, random_seed)
 
-        self.learn_cnt = 0
-        self.eps = 0.995
-        self.eps_decay = 0.999
+        self.eps = EPSILON
+        self.eps_decay = EPSILON_DECAY
 
     def load(self, actor_dict, critic_dict):
         self.actor_local.load_state_dict(actor_dict)

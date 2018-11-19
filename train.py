@@ -76,8 +76,8 @@ def ddpg(n_episodes=2000, max_t=10000, print_every=100):
             highest_score = np.max(scores)
 
         if np.mean(scores_deque) >= 0.7:
-            torch.save(agent.actor_local.state_dict(), 'checkpoints/checkpoint_actor_v2_solved.pth')
-            torch.save(agent.critic_local.state_dict(), 'checkpoints/checkpoint_critic_v2_solved.pth')
+            torch.save(agent.actor_local.state_dict(), 'checkpoints/checkpoint_actor_v3.pth')
+            torch.save(agent.critic_local.state_dict(), 'checkpoints/checkpoint_critic_v3_solved.pth')
             return scores_total, deque_history
 
 
@@ -104,5 +104,5 @@ plt.plot(np.arange(1, len(scores_p2) + 1), scores_p2)
 plt.plot(np.arange(1, len(deque_history) + 1), deque_history)
 plt.ylabel('Score')
 plt.xlabel('Episode #')
-fig.savefig('checkpoints/scores_v2.png')
+fig.savefig('checkpoints/scores_v3.png')
 plt.show()
